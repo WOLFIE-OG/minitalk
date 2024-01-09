@@ -6,11 +6,14 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/09 15:00:52 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/09 15:22:06 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minitalk.h"
+
 int	main(void)
 {
+	ft_printf("This is the server.");
 	return (0);
 }

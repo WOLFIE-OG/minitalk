@@ -6,11 +6,14 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/09 15:05:11 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/09 15:19:15 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minitalk.h"
+
 int	main(void)
 {
+	ft_printf("This is the client.");
 	return (0);
 }
