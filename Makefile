@@ -19,7 +19,7 @@ LIBFT = $(LIBFT_D)/libft.a
 FT_PRINTF = $(FT_PRINTF_D)/libftprintf.a
 LIBS = -L$(LIBFT_D) -lft -L$(FT_PRINTF_D) -lftprintf
 
-HEADERS = -I$(INC_DIR) -I$(LIBFT_D) -I$(FT_PRINTF)
+HEADERS = -I$(INC_DIR) -I$(LIBFT_D) -I$(FT_PRINTF_D)
 
 all: $(CLNT) $(SRV)
 
