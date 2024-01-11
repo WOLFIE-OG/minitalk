@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:08 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/11 15:30:08 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/11 17:09:05 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,4 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include <signal.h>
-
-int	test(int a);
-
 #endif
