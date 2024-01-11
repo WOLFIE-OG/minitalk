@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:08 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/09 15:04:24 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/11 15:30:08 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINITALK_H
 # include "libft.h"
 # include "ft_printf.h"
+# include <signal.h>
 
 int	test(int a);
 
