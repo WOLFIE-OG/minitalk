@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/11 17:13:58 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/12 15:33:06 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(void)
 {
 	signal(SIGUSR1, handler);
 	signal(SIGUSR2, handler);
-	ft_printf("This is the server. %d", getpid());
+	ft_printf("This is the server.\nProcess PID: "BBLU"%d\n"RESET, getpid());
 	while (1)
 		usleep(42);
 	return (0);

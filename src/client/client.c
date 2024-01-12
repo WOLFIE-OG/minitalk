@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/11 16:29:38 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/12 15:33:04 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ void	send_char(unsigned char c, int pid)
 
 int	main(int arg_n, char **arg_a)
 {
-	(void)arg_n;
 	char	*string;
 	int		pid;
 
+	if (arg_n < 3)
+	{
+		ft_printf(BRED"Not enough args to execute!"RESET);
+		exit(EXIT_FAILURE);
+	}
 	string = arg_a[2];
 	pid = ft_atoi(arg_a[1]);
-	ft_printf("This is the client. Target: %d\n", pid);
+	ft_printf("This is the client. Target: "BGRN"%d\n"RESET, pid);
 	while (*string)
 		send_char(*string++, pid);
 	return (0);
