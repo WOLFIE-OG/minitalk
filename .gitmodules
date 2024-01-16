@@ -1,6 +1,0 @@
-[submodule "lib/libft"]
-	path = lib/libft
-	url = https://github.com/WOLFIE-OG/Libft
-[submodule "lib/ft_printf"]
-	path = lib/ft_printf
-	url = https://github.com/WOLFIE-OG/ft_printf
