@@ -6,7 +6,7 @@
 /*   By: wolfie <wolfie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/16 16:11:28 by wolfie           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:16:15 by wolfie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	convert_char(int signum)
 
 int	main(void)
 {
-	ft_printf("%d\n", getpid());
+	ft_printf("Process PID: "BBLU"%d\n"RESET, getpid());
 	signal(SIGUSR1, convert_char);
 	signal(SIGUSR2, convert_char);
 	while (1)

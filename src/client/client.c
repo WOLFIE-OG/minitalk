@@ -6,7 +6,7 @@
 /*   By: wolfie <wolfie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/16 16:10:06 by wolfie           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:18:24 by wolfie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int arg_n, char **arg_a)
 	}
 	string = arg_a[2];
 	pid = ft_atoi(arg_a[1]);
-	ft_printf("__PID: %d", pid);
 	while (*string)
 		send_char(*string++, pid);
 	send_char('\0', pid);
