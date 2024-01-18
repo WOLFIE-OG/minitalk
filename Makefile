@@ -14,8 +14,8 @@ SRC_SERVER = $(SRC_DIR)/server/server.c
 OBJ_CLIENT = $(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJ_SERVER = $(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-LIBFT = $(LIBFT_D)/libft.a
-LIBS = -L$(LIBFT_D) -lft
+LIBFT = $(LIBFT_D)/build/libft.a
+LIBS = -L$(LIBFT_D)/build -lft
 
 HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 
