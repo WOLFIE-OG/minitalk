@@ -19,3 +19,9 @@ jobs:
 
     - name: Make program
       run: make
+
+    - name: Re-make program
+      run: make re
+
+    - name: View Contents of Libft
+      run: nm -C libft/build/libft.a
