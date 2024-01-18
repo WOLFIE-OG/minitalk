@@ -28,7 +28,7 @@ $(SRV): $(LIBFT) $(OBJ_SERVER)
 	$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
-	@mkdir -p $(@D)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
