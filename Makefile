@@ -40,8 +40,8 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_D) fclean
-	rm -f $(CLNT)
-	rm -f $(SRV)
+	rm -rf $(CLNT)
+	rm -rf $(SRV)
 
 re: fclean all
 
