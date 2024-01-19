@@ -3,53 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wolfie <wolfie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/17 15:53:03 by wolfie           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:55:24 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-static void	send_char(unsigned char c, int pid)
+void	signal_error(void)
 {
-	int				bit;
-	unsigned char	character;
+	ft_printf("\n%sclient: unexpected error.%s\n", RED, END);
+	exit(EXIT_FAILURE);
+}
 
-	bit = 8;
-	character = c;
-	while (bit > 0)
+void	char_to_bin(unsigned char c, int pid)
+{
+	int	bit;
+
+	bit = 0;
+	while (bit < 8)
 	{
-		bit--;
-		character = c >> bit;
-		if (character % 2 == 0)
-			kill(pid, SIGUSR2);
+		if (c & 128)
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				signal_error();
+		}
 		else
-			kill(pid, SIGUSR1);
-		usleep(150);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				signal_error();
+		}
+		c <<= 1;
+		bit++;
+		pause();
+		usleep(100);
 	}
 }
 
-int	main(int arg_n, char **arg_a)
+void	sent_text(char *str, int pid)
 {
-	char	*string;
-	int		pid;
+	int	i;
 
-	if (arg_n < 3)
+	i = 0;
+	while (str[i])
+		char_to_bin(str[i++], pid);
+	char_to_bin('\0', pid);
+}
+
+void	recieved(int sig)
+{
+	static int	sent;
+
+	if (sig == SIGUSR1)
 	{
-		ft_printf(BRED"Not enough args to execute!"RESET);
-		exit(EXIT_FAILURE);
+		ft_printf("%s%d signal sent successfully!%s\n", GREEN, ++sent, END);
+		exit(EXIT_SUCCESS);
 	}
-	if (ft_isdigit_str(arg_a[1]))
+	if (sig == SIGUSR2)
+		++sent;
+}
+
+int	main(int ac, char **av)
+{
+	int	server_pid;
+	int	client_pid;
+
+	client_pid = getpid();
+	if (ac == 3)
 	{
-		ft_printf(BRED"Invalid PID!"RESET);
-		exit(EXIT_FAILURE);
+		ft_printf("%sclient pid: %d%s\n", RED, client_pid, END);
+		signal(SIGUSR1, recieved);
+		signal(SIGUSR2, recieved);
+		server_pid = ft_atoi(av[1]);
+		ft_printf("%sText currently sending.. %s\n", YELLOW, END);
+		sent_text(av[2], server_pid);
 	}
-	string = arg_a[2];
-	pid = ft_atoi(arg_a[1]);
-	while (*string)
-		send_char(*string++, pid);
-	send_char('\0', pid);
-	return (0);
+	else
+		ft_printf("%susage: ./client <server_pid> <text to send>%s\n",
+			RED, END);
+	return (EXIT_FAILURE);
 }
