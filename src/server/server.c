@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/19 13:26:52 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/19 13:41:42 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	convert_char(int signum)
 	if (index == 8)
 	{
 		if (character == '\0')
-			ft_putchar_fd("\n", 1);
+			ft_putchar_fd('\n', 1);
 		else
 			ft_putchar_fd(character, 1);
 		index = 0;
