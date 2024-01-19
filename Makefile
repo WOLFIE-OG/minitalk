@@ -14,8 +14,8 @@ SRC_SERVER = $(SRC_DIR)/server/server.c
 OBJ_CLIENT = $(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJ_SERVER = $(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-LIBFT = $(LIBFT_D)/libft.a
-LIBS = -L$(LIBFT_D) -lft
+LIBFT = $(LIBFT_D)/build/libft.a
+LIBS = -L$(LIBFT_D)/build -lft
 
 HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 
@@ -28,7 +28,7 @@ $(SRV): $(LIBFT) $(OBJ_SERVER)
 	$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
-	@mkdir -p $(@D)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
@@ -40,8 +40,8 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_D) fclean
-	rm -f $(CLNT)
-	rm -f $(SRV)
+	rm -rf $(CLNT)
+	rm -rf $(SRV)
 
 re: fclean all
 
