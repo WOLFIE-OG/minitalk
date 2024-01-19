@@ -6,96 +6,38 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/19 12:54:21 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/19 13:11:36 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-void	display_banner(int pid)
+static void	convert_char(int signum)
 {
-	ft_printf("\n\t%s███╗   ███╗██╗███╗   ██╗██╗████████╗ █████╗ ██╗     ██╗██╗\
-			%s\n", YELLOW, END);
-	ft_printf("\t%s██╔████╔██║██║██╔██╗ ██║██║   ██║   ███████║██║     █████╔╝\
-			%s \n", YELLOW, END);
-	ft_printf("\t%s██║╚██╔╝██║██║██║╚██╗██║██║   ██║   ██╔══██║██║     ██╔═██╗\
-			%s \n", YELLOW, END);
-	ft_printf("\t%s██║ ╚═╝ ██║██║██║ ╚████║██║   ██║   ██║  ██║███████╗██║  ██╗\
-			%s\n", YELLOW, END);
-	ft_printf("\t%s╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝\
-			%s\n", YELLOW, END);
-	ft_printf("%s\n\t\tPID: %d%s\t\t\t%sBy: aymoulou%s\n", RED, pid, END,
-		YELLOW, END);
-	ft_printf("\t⊱ ────────────────────── {.⋅ ✯ ⋅.} ─────────────────────── ⊰\
-			\n\n");
-}
+	static unsigned char	character;
+	static int				index;
 
-void	signal_error(void)
-{
-	ft_printf("\n%sserver: unexpected error.%s\n", RED, END);
-	exit(EXIT_FAILURE);
-}
-
-void	extended_action(char *c, int *received, int *client_pid, int *bit)
-{
-	ft_printf("%c", *c);
-	if (*c == '\0')
+	character |= (signum == SIGUSR1);
+	index++;
+	if (index == 8)
 	{
-		ft_printf("\n%s%d signal recieved from client PID: %d%s\n",
-			GREEN, *received, *client_pid, END);
-		*received = 0;
-		*c = 0;
-		if (kill(*client_pid, SIGUSR1) == -1)
-			signal_error();
-		return ;
+		if (character == '\0')
+			ft_printf("\n");
+		else
+			ft_printf("%c", character);
+		index = 0;
+		character = 0;
 	}
-	*bit = 0;
-}
-
-void	action(int sig, siginfo_t *info, void *context)
-{
-	static int	client_pid;
-	static int	bit;
-	static char	c;
-	static int	received;
-	static int	current_pid;
-
-	(void)context;
-	if (!client_pid)
-		client_pid = info->si_pid;
-	current_pid = info->si_pid;
-	if (client_pid != current_pid)
-	{
-		client_pid = current_pid;
-		bit = 0;
-		c = 0;
-		received = 0;
-	}
-	c |= (sig == SIGUSR2);
-	received++;
-	bit++;
-	if (bit == 8)
-		extended_action(&c, &received, &client_pid, &bit);
-	c <<= 1;
-	usleep(100);
-	kill(client_pid, SIGUSR2);
+	else
+		character <<= 1;
 }
 
 int	main(void)
 {
-	int					pid;
-	struct sigaction	act;
-
-	pid = getpid();
-	display_banner(pid);
-	act.sa_sigaction = action;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = SA_SIGINFO;
+	ft_printf("Process PID: "BBLU"%d\n"RESET, getpid());
+	signal(SIGUSR1, convert_char);
+	signal(SIGUSR2, convert_char);
 	while (1)
-	{
-		sigaction(SIGUSR1, &act, 0);
-		sigaction(SIGUSR2, &act, 0);
-		pause();
-	}
-	return (EXIT_FAILURE);
+		sleep(1);
+	return (0);
 }
