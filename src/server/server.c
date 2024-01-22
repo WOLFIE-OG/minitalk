@@ -6,13 +6,13 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/19 13:41:42 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/22 12:24:38 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-static void	convert_char(int signum)
+static void	receive_char(int signum)
 {
 	static unsigned char	character;
 	static int				index;
@@ -35,8 +35,8 @@ static void	convert_char(int signum)
 int	main(void)
 {
 	ft_printf("Process PID: "BBLU"%d\n"RESET, getpid());
-	signal(SIGUSR1, convert_char);
-	signal(SIGUSR2, convert_char);
+	signal(SIGUSR1, receive_char);
+	signal(SIGUSR2, receive_char);
 	while (1)
 		sleep(1);
 	return (0);
