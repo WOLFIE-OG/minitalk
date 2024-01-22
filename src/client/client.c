@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/19 13:11:29 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/22 12:31:23 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,18 @@ static void	send_char(unsigned char c, int pid)
 	}
 }
 
+static void	receive_pong(int sigint)
+{
+	if (sigint == SIGUSR1)
+		ft_putchar_fd('1', 1);
+	else if (sigint == SIGUSR2)
+		ft_putchar_fd('0', 1);
+}
+
 int	main(int arg_n, char **arg_a)
 {
 	char	*string;
-	int		pid;
+	pid_t	pid;
 
 	if (arg_n < 3)
 	{
@@ -46,6 +54,8 @@ int	main(int arg_n, char **arg_a)
 		ft_printf(BRED"Invalid PID!"RESET);
 		exit(EXIT_FAILURE);
 	}
+	signal(SIGUSR1, receive_pong);
+	signal(SIGUSR2, receive_pong);
 	string = arg_a[2];
 	pid = ft_atoi(arg_a[1]);
 	while (*string)
