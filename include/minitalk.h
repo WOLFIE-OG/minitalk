@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:08 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/22 12:29:40 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/22 13:10:15 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,4 @@
 # include "../libft/include/libft.h"
 # include "colour_codes.h"
 # include <signal.h>
-# include <sys/types.h>
 #endif
