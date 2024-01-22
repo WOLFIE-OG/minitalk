@@ -6,17 +6,18 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:07:16 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/22 13:10:24 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/22 13:16:24 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-static void	receive_char(int signum, siginfo_t *info)
+static void	receive_char(int signum, siginfo_t *info, void *ctx)
 {
 	static unsigned char	character;
 	static int				index;
-
+	
+	(void)ctx;
 	character |= (signum == SIGUSR1);
 	index++;
 	if (index == 8)
@@ -30,6 +31,8 @@ static void	receive_char(int signum, siginfo_t *info)
 	}
 	else
 		character <<= 1;
+	if (signum == SIGUSR1)
+		kill()
 }
 
 int	main(void)
@@ -37,7 +40,7 @@ int	main(void)
 	struct sigaction	handler;
 
 	handler.sa_handler = &receive_char;
-	handler.sa_flags = SA_SIGINFO | SA_RESTART
+	handler.sa_flags = SA_SIGINFO | SA_RESTART;
 	ft_printf("Process PID: "BBLU"%d\n"RESET, getpid());
 	
 	while (1)
