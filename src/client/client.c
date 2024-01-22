@@ -6,11 +6,27 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/22 12:31:23 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/22 15:07:18 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
+
+static void	receive_pong(int sigint)
+{
+	static int	bit;
+
+	if (bit == 8)
+	{
+		ft_putchar_fd('\n', 1);
+		bit = 0;
+	}
+	if (sigint == SIGUSR1)
+		ft_putchar_fd('1', 1);
+	else if (sigint == SIGUSR2)
+		ft_putchar_fd('0', 1);
+	bit++;
+}
 
 static void	send_char(unsigned char c, int pid)
 {
@@ -29,14 +45,6 @@ static void	send_char(unsigned char c, int pid)
 			kill(pid, SIGUSR1);
 		usleep(100);
 	}
-}
-
-static void	receive_pong(int sigint)
-{
-	if (sigint == SIGUSR1)
-		ft_putchar_fd('1', 1);
-	else if (sigint == SIGUSR2)
-		ft_putchar_fd('0', 1);
 }
 
 int	main(int arg_n, char **arg_a)
