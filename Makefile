@@ -19,7 +19,10 @@ LIBS = -L$(LIBFT_D)/build -lft
 
 HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 
-all: $(CLNT) $(SRV)
+all: dir $(CLNT) $(SRV)
+
+dir:
+	mkdir -p $(OBJ_DIR)
 
 $(CLNT): $(LIBFT) $(OBJ_CLIENT)
 	$(CC) $(CFLAGS) $(OBJ_CLIENT) $(HEADERS) $(LIBS) -o $(CLNT)
@@ -28,7 +31,6 @@ $(SRV): $(LIBFT) $(OBJ_SERVER)
 	$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
-	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
