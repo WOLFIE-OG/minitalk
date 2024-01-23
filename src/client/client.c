@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/22 18:31:39 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/23 12:54:19 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	receive_pong(int sigint)
 
 	if (bit == 8)
 	{
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd(' ', 1);
 		bit = 0;
 	}
 	if (sigint == SIGUSR1)
