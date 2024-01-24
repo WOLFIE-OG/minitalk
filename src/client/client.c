@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/24 14:36:41 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/24 14:39:09 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int arg_n, char **arg_a)
 		ft_printf(BRED"Not enough args to execute!"RESET);
 		exit(EXIT_FAILURE);
 	}
-	if (!ft_ischeck_str(arg_a[1], ft_isdigit))
+	if (ft_ischeck_str(arg_a[1], ft_isdigit))
 	{
 		ft_printf(BRED"Invalid PID!"RESET);
 		exit(EXIT_FAILURE);
