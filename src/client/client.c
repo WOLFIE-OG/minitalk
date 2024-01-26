@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 13:53:02 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:58:32 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ t_signal_count	*g_signal_count;
 
 static void	receive_pong(int sigint)
 {
-	static size_t	count;
-
 	if (sigint == SIGUSR1)
-		count++;
+		g_signal_count->incoming_len++;
 	else if (sigint == SIGUSR2)
-		count++;
-	if (count == g_signal_count->len)
+		g_signal_count->incoming_len++;
+	if (g_signal_count->incoming_len == g_signal_count->outgoing_len)
 		g_signal_count->is_complete = true;
 
 }
@@ -41,12 +39,12 @@ static void	send_char(unsigned char c, int pid)
 		if (character % 2 == 0)
 		{
 			kill(pid, SIGUSR2);
-			g_signal_count->len++;
+			g_signal_count->outgoing_len++;
 		}
 		else
 		{
 			kill(pid, SIGUSR1);
-			g_signal_count->len++;
+			g_signal_count->outgoing_len++;
 		}
 		usleep(WAIT_TIME);
 	}
@@ -66,6 +64,7 @@ void	create_sig_counter(void)
 	g_signal_count = malloc(sizeof(t_signal_count));
 	if (!g_signal_count)
 		exit(EXIT_FAILURE);
+	g_signal_count->is_complete = false;
 }
 
 int	main(int arg_n, char **arg_a)

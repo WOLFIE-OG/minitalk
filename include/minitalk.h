@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:08 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 13:44:24 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:57:47 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 typedef struct s_signal_count
 {
 	bool	is_complete;
-	size_t	len;
+	size_t	incoming_len;
+	size_t	outgoing_len;
 }	t_signal_count;
 
 #endif
