@@ -6,26 +6,25 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/24 14:39:09 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:45:58 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
+t_signal_count	g_signal_count;
+
 static void	receive_pong(int sigint)
 {
-	static int	bit;
+	static int	count;
 
-	if (bit == 8)
-	{
-		ft_putchar_fd(' ', 1);
-		bit = 0;
-	}
 	if (sigint == SIGUSR1)
-		ft_putchar_fd('1', 1);
+		count++;
 	else if (sigint == SIGUSR2)
-		ft_putchar_fd('0', 1);
-	bit++;
+		count++;
+	if (count == g_signal_count)
+		g_signal_count->is_done = true;
+
 }
 
 static void	send_char(unsigned char c, int pid)
@@ -40,12 +39,28 @@ static void	send_char(unsigned char c, int pid)
 		bit--;
 		character = c >> bit;
 		if (character % 2 == 0)
+		{
 			kill(pid, SIGUSR2);
+			g_signal_count->len++;
+		}
 		else
+		{
 			kill(pid, SIGUSR1);
+			g_signal_count->len++;
+		}
 		usleep(WAIT_TIME);
 	}
 }
+
+static void	result()
+{
+	if (g_signal_count->is_done == -1)
+		ft_printf(BGRN"Server sent the correct amount of chars!\n"RESET);
+	else
+		ft_printf(BRED"Server didn't send the correct amount of chars!\n"RESET);
+}
+
+
 
 int	main(int arg_n, char **arg_a)
 {
@@ -69,5 +84,6 @@ int	main(int arg_n, char **arg_a)
 	while (*string)
 		send_char(*string++, pid);
 	send_char('\0', pid);
+	result();
 	return (0);
 }
