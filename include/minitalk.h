@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:08 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 14:01:08 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 14:13:17 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@
 # include "../libft/include/libft.h"
 # include "colour_codes.h"
 # include <signal.h>
-# include <stdbool.h>
 
 typedef struct s_signal_count
 {
-	bool	is_complete;
 	size_t	i_len;
 	size_t	o_len;
 }	t_signal_count;

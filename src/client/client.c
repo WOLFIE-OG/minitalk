@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 14:01:49 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 14:14:39 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ static void	receive_pong(int sigint)
 		g_s_count->i_len++;
 	else if (sigint == SIGUSR2)
 		g_s_count->i_len++;
-	if (g_s_count->i_len == g_s_count->o_len)
-		g_s_count->is_complete = true;
-
 }
 
 static void	send_char(unsigned char c, int pid)
@@ -52,14 +49,16 @@ static void	send_char(unsigned char c, int pid)
 
 static void	result(void)
 {
-	if (g_s_count->is_complete == true)
+	if (g_s_count->i_len == g_s_count->o_len)
 	{
-		ft_printf(BGRN"Server sent the correct amount of chars!"RESET);
-		ft_printf(BBLU"[%d / %d]"RESET, g_s_count->i_len, g_s_count->o_len);
+		ft_printf(BGRN"Server sent the correct amount of signals!"RESET);
+		ft_printf(BBLU" [%d / %d]"RESET, g_s_count->i_len, g_s_count->o_len);
 	}
 	else
-		ft_printf(BRED"Server didn't send the correct amount of chars!"RESET);
-		ft_printf(BBLU"[%d / %d]\n"RESET, g_s_count->i_len, g_s_count->o_len);
+	{
+		ft_printf(BRED"Server didn't send the correct amount of signals!"RESET);
+		ft_printf(BBLU" [%d / %d]\n"RESET, g_s_count->i_len, g_s_count->o_len);
+	}
 	free(g_s_count);
 }
 
@@ -68,7 +67,6 @@ void	create_sig_counter(void)
 	g_s_count = malloc(sizeof(t_signal_count));
 	if (!g_s_count)
 		exit(EXIT_FAILURE);
-	g_s_count->is_complete = false;
 }
 
 int	main(int arg_n, char **arg_a)
