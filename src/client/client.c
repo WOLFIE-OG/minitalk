@@ -6,13 +6,13 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 13:45:58 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:50:36 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-t_signal_count	g_signal_count;
+t_signal_count	*g_signal_count;
 
 static void	receive_pong(int sigint)
 {
@@ -23,7 +23,7 @@ static void	receive_pong(int sigint)
 	else if (sigint == SIGUSR2)
 		count++;
 	if (count == g_signal_count)
-		g_signal_count->is_done = true;
+		g_signal_count->is_complete = true;
 
 }
 
@@ -52,15 +52,21 @@ static void	send_char(unsigned char c, int pid)
 	}
 }
 
-static void	result()
+static void	result(void)
 {
-	if (g_signal_count->is_done == -1)
+	if (g_signal_count->is_complete == -1)
 		ft_printf(BGRN"Server sent the correct amount of chars!\n"RESET);
 	else
 		ft_printf(BRED"Server didn't send the correct amount of chars!\n"RESET);
+	free(g_signal_count);
 }
 
-
+void	create_sig_counter(void)
+{
+	g_signal_count = malloc(sizeof(t_signal_count));
+	if (!g_signal_count)
+		exit(EXIT_FAILURE);
+}
 
 int	main(int arg_n, char **arg_a)
 {
@@ -77,6 +83,7 @@ int	main(int arg_n, char **arg_a)
 		ft_printf(BRED"Invalid PID!"RESET);
 		exit(EXIT_FAILURE);
 	}
+	create_sig_counter();
 	signal(SIGUSR1, receive_pong);
 	signal(SIGUSR2, receive_pong);
 	string = arg_a[2];
