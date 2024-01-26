@@ -6,22 +6,22 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 13:58:32 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 14:01:49 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minitalk.h"
 
-t_signal_count	*g_signal_count;
+t_signal_count	*g_s_count;
 
 static void	receive_pong(int sigint)
 {
 	if (sigint == SIGUSR1)
-		g_signal_count->incoming_len++;
+		g_s_count->i_len++;
 	else if (sigint == SIGUSR2)
-		g_signal_count->incoming_len++;
-	if (g_signal_count->incoming_len == g_signal_count->outgoing_len)
-		g_signal_count->is_complete = true;
+		g_s_count->i_len++;
+	if (g_s_count->i_len == g_s_count->o_len)
+		g_s_count->is_complete = true;
 
 }
 
@@ -39,12 +39,12 @@ static void	send_char(unsigned char c, int pid)
 		if (character % 2 == 0)
 		{
 			kill(pid, SIGUSR2);
-			g_signal_count->outgoing_len++;
+			g_s_count->o_len++;
 		}
 		else
 		{
 			kill(pid, SIGUSR1);
-			g_signal_count->outgoing_len++;
+			g_s_count->o_len++;
 		}
 		usleep(WAIT_TIME);
 	}
@@ -52,19 +52,23 @@ static void	send_char(unsigned char c, int pid)
 
 static void	result(void)
 {
-	if (g_signal_count->is_complete == true)
-		ft_printf(BGRN"Server sent the correct amount of chars!\n"RESET);
+	if (g_s_count->is_complete == true)
+	{
+		ft_printf(BGRN"Server sent the correct amount of chars!"RESET);
+		ft_printf(BBLU"[%d / %d]"RESET, g_s_count->i_len, g_s_count->o_len);
+	}
 	else
-		ft_printf(BRED"Server didn't send the correct amount of chars!\n"RESET);
-	free(g_signal_count);
+		ft_printf(BRED"Server didn't send the correct amount of chars!"RESET);
+		ft_printf(BBLU"[%d / %d]\n"RESET, g_s_count->i_len, g_s_count->o_len);
+	free(g_s_count);
 }
 
 void	create_sig_counter(void)
 {
-	g_signal_count = malloc(sizeof(t_signal_count));
-	if (!g_signal_count)
+	g_s_count = malloc(sizeof(t_signal_count));
+	if (!g_s_count)
 		exit(EXIT_FAILURE);
-	g_signal_count->is_complete = false;
+	g_s_count->is_complete = false;
 }
 
 int	main(int arg_n, char **arg_a)
