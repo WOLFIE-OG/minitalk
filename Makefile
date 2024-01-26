@@ -21,7 +21,6 @@ HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 
 all: $(CLNT) $(SRV)
 
-
 $(CLNT): $(LIBFT) $(OBJ_CLIENT)
 	$(CC) $(CFLAGS) $(OBJ_CLIENT) $(HEADERS) $(LIBS) -o $(CLNT)
 
