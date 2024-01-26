@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 13:50:36 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/26 13:53:02 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ t_signal_count	*g_signal_count;
 
 static void	receive_pong(int sigint)
 {
-	static int	count;
+	static size_t	count;
 
 	if (sigint == SIGUSR1)
 		count++;
 	else if (sigint == SIGUSR2)
 		count++;
-	if (count == g_signal_count)
+	if (count == g_signal_count->len)
 		g_signal_count->is_complete = true;
 
 }
@@ -54,7 +54,7 @@ static void	send_char(unsigned char c, int pid)
 
 static void	result(void)
 {
-	if (g_signal_count->is_complete == -1)
+	if (g_signal_count->is_complete == true)
 		ft_printf(BGRN"Server sent the correct amount of chars!\n"RESET);
 	else
 		ft_printf(BRED"Server didn't send the correct amount of chars!\n"RESET);
