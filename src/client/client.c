@@ -6,7 +6,7 @@
 /*   By: otodd <otodd@student.42london.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:22:32 by otodd             #+#    #+#             */
-/*   Updated: 2024/01/26 14:14:39 by otodd            ###   ########.fr       */
+/*   Updated: 2024/01/29 16:16:34 by otodd            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	result(void)
 	free(g_s_count);
 }
 
-void	create_sig_counter(void)
+static void	create_sig_counter(void)
 {
 	g_s_count = malloc(sizeof(t_signal_count));
 	if (!g_s_count)
