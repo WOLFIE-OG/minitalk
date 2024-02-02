@@ -1,4 +1,4 @@
 [submodule "libft"]
 	path = libft
-	url = https://github.com/WOLFIE-OG/Libft
+	url = https://github.com/WOLFIE-OG/libft
 	branch = dev
