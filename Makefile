@@ -1,3 +1,9 @@
+# Define colors
+YELLOW=\033[1;33m
+RED=\033[1;31m
+GREEN=\033[1;32m
+NC=\033[0m
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -22,26 +28,32 @@ HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 all: $(CLNT) $(SRV)
 
 $(CLNT): $(LIBFT) $(OBJ_CLIENT)
-	$(CC) $(CFLAGS) $(OBJ_CLIENT) $(HEADERS) $(LIBS) -o $(CLNT)
+	@echo "$(GREEN)[CLIENT]    Building $@...$(NC)"
+	@$(CC) $(CFLAGS) $(OBJ_CLIENT) $(HEADERS) $(LIBS) -o $(CLNT)
 
 $(SRV): $(LIBFT) $(OBJ_SERVER)
-	$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
+	@echo "$(GREEN)[SERVER]    Building $@...$(NC)"
+	@$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@mkdir -p $(@D)
+	@echo "$(GREEN)[BUILD]     Compiling $< --> $@$(NC)"
+	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_D)
+	@echo "$(GREEN)[LIBFT]     Building library...$(NC)"
+	@$(MAKE) -s -C $(LIBFT_D)
 
 clean:
-	$(MAKE) -C $(LIBFT_D) clean
-	rm -rf $(OBJ_DIR)
+	@echo "$(RED)[CLEAN]     Cleaning object files...$(NC)"
+	@$(MAKE) -s -C $(LIBFT_D) clean
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_D) fclean
-	rm -rf $(CLNT)
-	rm -rf $(SRV)
+	@echo "$(RED)[FCLEAN]    Cleaning executable files...$(NC)"
+	@$(MAKE) -s -C $(LIBFT_D) fclean
+	@rm -rf $(CLNT)
+	@rm -rf $(SRV)
 
 re: fclean all
 
