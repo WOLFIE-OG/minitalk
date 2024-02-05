@@ -26,15 +26,7 @@ LIBS = -L$(LIBFT_D)/build -lft
 
 HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 
-all: display $(CLNT) $(SRV)
-
-display:
-	@echo "$(BLUE)=======================================================$(NC)"
-	@echo "Program(s): $(CLNT), $(SRV)"
-	@echo "Compiler: $(CC)"
-	@echo "Compiler Flags: $(CFLAGS)"
-	@echo "Using libft?: Yes"
-	@echo "$(BLUE)=======================================================$(NC)"
+all: $(CLNT) $(SRV)
 
 $(CLNT): $(LIBFT) $(OBJ_CLIENT)
 	@echo "[$(GREEN)CLIENT$(NC)]    Building $@..."
