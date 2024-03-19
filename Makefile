@@ -1,8 +1,20 @@
-# Define colors
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: otodd <otodd@student.42london.com>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/19 12:13:04 by otodd             #+#    #+#              #
+#    Updated: 2024/03/19 12:13:05 by otodd            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 YELLOW=\033[1;33m
 RED=\033[1;31m
 GREEN=\033[1;32m
-BLUE=\033[0;34m
+BLUE=\033[1;34m
+CYAN=\033[1;36m
 NC=\033[0m
 
 CC = clang
@@ -38,15 +50,15 @@ $(SRV): $(LIBFT) $(OBJ_SERVER)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
 	@mkdir -p $(@D)
-	@echo "[$(GREEN)MINITALK$(NC)]  Compiling $< --> $@"
+	@echo "[$(BLUE)MINITALK$(NC)]  Compiling $< --> $@"
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
-	@echo "[$(GREEN)MINITALK$(NC)]  Building library..."
+	@echo "[$(CYAN)MINITALK$(NC)]  Building library..."
 	@$(MAKE) -s -C $(LIBFT_D)
 
 clean:
-	@echo "[$(RED)MINITALK$(NC)]  Cleaning object files..."
+	@echo "[$(YELLOW)MINITALK$(NC)]  Cleaning object files..."
 	@$(MAKE) -s -C $(LIBFT_D) clean
 	@rm -rf $(OBJ_DIR)
 
