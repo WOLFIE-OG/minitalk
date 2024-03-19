@@ -29,29 +29,29 @@ HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
 all: $(CLNT) $(SRV)
 
 $(CLNT): $(LIBFT) $(OBJ_CLIENT)
-	@echo "[$(GREEN)CLIENT$(NC)]    Building $@..."
+	@echo "[$(GREEN)MINITALK$(NC)] Building $@..."
 	@$(CC) $(CFLAGS) $(OBJ_CLIENT) $(HEADERS) $(LIBS) -o $(CLNT)
 
 $(SRV): $(LIBFT) $(OBJ_SERVER)
-	@echo "[$(GREEN)SERVER$(NC)]    Building $@..."
+	@echo "[$(GREEN)MINITALK$(NC)] Building $@..."
 	@$(CC) $(CFLAGS) $(OBJ_SERVER) $(HEADERS) $(LIBS) -o $(SRV)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC_DIR)/minitalk.h
 	@mkdir -p $(@D)
-	@echo "[$(GREEN)BUILD$(NC)]     Compiling $< --> $@"
+	@echo "[$(GREEN)MINITALK$(NC)] Compiling $< --> $@"
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
 $(LIBFT):
-	@echo "[$(GREEN)LIBFT$(NC)]     Building library..."
+	@echo "[$(GREEN)MINITALK$(NC)] Building library..."
 	@$(MAKE) -s -C $(LIBFT_D)
 
 clean:
-	@echo "[$(RED)CLEAN$(NC)]     Cleaning object files..."
+	@echo "[$(RED)MINITALK$(NC)] Cleaning object files..."
 	@$(MAKE) -s -C $(LIBFT_D) clean
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@echo "[$(RED)FCLEAN$(NC)]    Cleaning executable files..."
+	@echo "[$(RED)MINITALK$(NC)] Cleaning executable files..."
 	@$(MAKE) -s -C $(LIBFT_D) fclean
 	@rm -rf $(CLNT)
 	@rm -rf $(SRV)
