@@ -17,7 +17,7 @@ BLUE=\033[1;34m
 CYAN=\033[1;36m
 NC=\033[0m
 
-CC = clang
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 CLNT = client
