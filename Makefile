@@ -6,37 +6,37 @@
 #    By: otodd <otodd@student.42london.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 12:13:04 by otodd             #+#    #+#              #
-#    Updated: 2024/03/19 12:22:00 by otodd            ###   ########.fr        #
+#    Updated: 2024/04/23 13:43:30 by otodd            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-YELLOW=\033[1;33m
-RED=\033[1;31m
-GREEN=\033[1;32m
-BLUE=\033[1;34m
-CYAN=\033[1;36m
-NC=\033[0m
+YELLOW		=	\033[1;33m
+RED			=	\033[1;31m
+GREEN		=	\033[1;32m
+BLUE		=	\033[1;34m
+CYAN		=	\033[1;36m
+NC			=	\033[0m
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC			=	cc
+CFLAGS 		= 	-Wall -Wextra -Werror
 
-CLNT = client
-SRV = server
+CLNT 		= 	client
+SRV			= 	server
 
-SRC_DIR = src
-OBJ_DIR = obj
-LIBFT_D = libft
-INC_DIR = include
+SRC_DIR 	= 	src
+OBJ_DIR 	= 	obj
+LIBFT_D 	= 	libft
+INC_DIR 	= 	include
 
-SRC_CLIENT = $(SRC_DIR)/client/client.c
-SRC_SERVER = $(SRC_DIR)/server/server.c
-OBJ_CLIENT = $(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJ_SERVER = $(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRC_CLIENT	=	$(SRC_DIR)/client/client.c
+SRC_SERVER 	= 	$(SRC_DIR)/server/server.c
+OBJ_CLIENT 	= 	$(SRC_CLIENT:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ_SERVER 	= 	$(SRC_SERVER:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-LIBFT = $(LIBFT_D)/build/libft.a
-LIBS = -L$(LIBFT_D)/build -lft
+LIBFT 		= 	$(LIBFT_D)/build/libft.a
+LIBS 		= 	-L$(LIBFT_D)/build -lft
 
-HEADERS = -I$(INC_DIR) -I$(LIBFT_D)
+HEADERS 	= 	-I$(INC_DIR) -I$(LIBFT_D)
 
 all: $(CLNT) $(SRV)
 
