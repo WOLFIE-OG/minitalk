@@ -17,19 +17,16 @@ jobs:
     - name: Get submodules
       run: git submodule update --init --recursive
 
-    - name: Update
+    - name: Update apt
       run: sudo apt-get update --fix-missing
     
-    - name: Get valgrind
-      run: sudo apt-get install valgrind
+    - name: Install tree
+      run: sudo apt-get install tree 
 
-    - name: Get norminette
+    - name: Install norminette
       run: pip install norminette
 
-    - name: Install tree
-      run: sudo apt-get install tree
-
-    - name: Tree
+    - name: Run tree
       run: tree
 
     - name: Run norminette
