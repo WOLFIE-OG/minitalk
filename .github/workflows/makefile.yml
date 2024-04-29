@@ -17,6 +17,24 @@ jobs:
     - name: Get submodules
       run: git submodule update --init --recursive
 
+    - name: Update
+      run: sudo apt-get update --fix-missing
+    
+    - name: Get valgrind
+      run: sudo apt-get install valgrind
+
+    - name: Get norminette
+      run: pip install norminette
+
+    - name: Install tree
+      run: sudo apt-get install tree
+
+    - name: Tree
+      run: tree
+
+    - name: Run norminette
+      run: norminette src include libft/src libft/include
+
     - name: Make program
       run: make
 
