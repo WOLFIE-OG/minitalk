@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@main
 
     - name: Get submodules
       run: git submodule update --init --recursive
@@ -32,11 +32,17 @@ jobs:
     - name: Run norminette
       run: norminette src include libft/src libft/include
 
-    - name: Make program
+    - name: Make minitalk
       run: make
 
-    - name: Re-make program
+    - name: Re-make minitalk
       run: make re
 
-    - name: View Contents of Libft
+    - name: View Contents of libft
       run: nm -C libft/build/libft.a
+
+    - name: View contents of client
+      run: nm -C client
+    
+    - name: View contents of server
+      run: nm -C server
