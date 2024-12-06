@@ -6,7 +6,7 @@
 #    By: otodd <otodd@student.42london.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/03 11:56:46 by otodd             #+#    #+#              #
-#    Updated: 2024/12/04 22:45:44 by otodd            ###   ########.fr        #
+#    Updated: 2024/12/06 14:42:45 by otodd            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ LOG_FORMAT = "[%(levelname)s] :: [%(asctime)s] :: %(message)s"
 WORKFLOW_DIR = Path(".github/workflows/")
 TMP_DIR = Path("/tmp/actions_runner/")
 REPO = Repo(os.getcwd())
+ENV = os.environ
 
 class ColoredFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord):
@@ -40,9 +41,11 @@ class ColoredFormatter(logging.Formatter):
         r.levelname = f"{color}{r.levelname}{COLORS['RESET']}"
         return super().format(r)
 
+
 class Progress(RemoteProgress):
     def update(self, *args):
         logger.debug(self._cur_line)
+
 
 logger = logging.getLogger("actions_runner")
 logger.setLevel(logging.DEBUG)
@@ -86,8 +89,8 @@ for workflow in os.listdir(WORKFLOW_DIR):
         action = safe_load(f)
 
     for job in action["jobs"]:
-        env = action["jobs"][job].get("env")
-        env_i = [item for item in action["jobs"][job].get("env").keys()]
+        env = action["jobs"][job].get("env", {})
+        env_i = [item for item in env.keys()]
         logger.debug(f"Running steps for {action.get("name")} on job {job}")
         length = len(action["jobs"][job].get("steps"))
         for index, step in enumerate(action["jobs"][job].get("steps")):
@@ -110,6 +113,7 @@ for workflow in os.listdir(WORKFLOW_DIR):
                     else Path(repo_dir)
                 ),
                 shell=True,
+                env=ENV
             )
             logger.debug(f"{5 * '='}| [ Step stdout start ] |{5 * '='}\n")
             while True:
